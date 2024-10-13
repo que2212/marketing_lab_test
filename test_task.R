@@ -10,9 +10,13 @@ library(rstatix)
 library(ggrepel)
 library(ggsci)
 
+
+
+
 # importing data ----------------------------------------------------------
 
 data <- read_excel(here('data', 'data.xlsx'))
+
 
 
 
@@ -41,6 +45,10 @@ data$povod_top_1 <- factor(data$povod_top_1, levels = c(1:9, 98), # пропис
                              'Детский праздник 9-12 лет',
                              'Детский праздник 13-15 лет',
                              'Другое'))
+
+
+
+
 
 # task_1 -----------------------------------------------------------
 
@@ -186,6 +194,7 @@ dev.off()
 
 
 
+
 # task_2 ------------------------------------------------------------------
 
 
@@ -298,6 +307,7 @@ write.xlsx(df_age_recode, file = file_path)
 
 
 
+
 # task4 -------------------------------------------------------------------
 
 df_budget <- data |>
@@ -339,6 +349,7 @@ stats <- df_budget |> dlookr::describe(q12_budget) |>
   mutate(res = round(mean - p50, digits = 2), .before = sd) # res - разница между средним и медианой, удобно рассчитывать для понимания нормальности
 file_path <- here("task4", "stats.xlsx") # сохраняем в xlsx
 write.xlsx(stats, file = file_path)
+
 
 
 
@@ -508,6 +519,7 @@ write.xlsx(affinity_indecies, file = file_path)
 
 
 
+
 # task_6 ------------------------------------------------------------------
 
 ## готовим данные
@@ -543,7 +555,6 @@ df <- df_task6_pivoted |> group_by(question, quest_values) |>
   ungroup()
 file_path <- here("task6", "povod_top1.xlsx") # сохраняем в xlsx
 write.xlsx(df, file = file_path)
-
 
 
 png(width = 1920, height = 1080) # Строим график
@@ -613,6 +624,8 @@ final_table <- rbind(Weekdays = group_weekdays, Weekend = group_weekend, Total =
 # Выполняем точный критерий Фишера
 fisher_result <- fisher.test(final_table, simulate.p.value = TRUE)
 print(fisher_result)
+
+
 
 
 # task_7 ------------------------------------------------------------------
@@ -708,6 +721,7 @@ print(fisher_result)
 
 
 
+
 ### task 7 часть 2
 
 
@@ -788,15 +802,12 @@ dev.off()
 
 
 ### сравнение с тотал
-
-
 filtered <- df_task7_pivoted_uslug |> filter(quest_values == "Пользовался")
 
-
-# Создаем таблицу для группы "пн-чт"
+# Создаем таблицу для группы мужчин
 group_males <- table(filtered$question[filtered$sex == "Мужской"])
 
-# Создаем таблицу для группы "пт и сб-вс"
+# Создаем таблицу для группы женщин
 group_females <- table(filtered$question[filtered$sex == "Женский"])
 
 # Создаем Total
