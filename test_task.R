@@ -80,7 +80,6 @@ pivoted_data$povod_values <- factor( # присваиваем метки
   pivoted_data$povod_values, levels = 1:2, labels = c("Был", "Мог бы арендовать")
 )
 
-#write.xlsx(pivoted_data, "pivoted_data.xlsx") # сохраняем получившийся датасет
 
 ### Частотный анализ переменной "povod_top_1"
 
